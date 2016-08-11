@@ -9,6 +9,10 @@ dependencies:
   override:
     - python setup.py develop
 
+test:
+  override:
+    - pip install -r test-requirements.txt
+
 deployment:
   release:
     branch: staged
