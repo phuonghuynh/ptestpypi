@@ -9,15 +9,6 @@ dependencies:
   override:
     - python setup.py develop
 
-test:
-  override:
-    - pip install -r test-requirements.txt
-    - coverage run --source finix setup.py test
-
-  post:
-    - coverage html
-    - cp -R htmlcov $CIRCLE_ARTIFACTS/htmlcov
-
 deployment:
   release:
     branch: staged
