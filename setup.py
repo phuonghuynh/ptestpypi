@@ -83,7 +83,7 @@ setup(
     zip_safe=False,
     scripts=scripts,
     dependency_links=[
-        "-e git+https://github.com/finix-payments/wac@v0.26#egg=wac"
+        "https://github.com/finix-payments/wac@v0.26#egg=wac"
     ],
     install_requires=requires,
     extras_require=extras_require,
