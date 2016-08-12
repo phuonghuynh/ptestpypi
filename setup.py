@@ -27,12 +27,12 @@ with open(os.path.join(PWD, "README.md")) as f:
     README = f.read()
 
 dependency_links=[
-    "git://github.com/finix-payments/wac.git@v0.26#egg=wac-26"
+    "git://github.com/finix-payments/wac.git@v0.26#egg=wac"
 ]
 
 requires = [
     "coreapi==1.20.0",
-    "wac==26"
+    "wac"
 ]
 
 extras_require = {
