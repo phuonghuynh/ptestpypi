@@ -12,7 +12,6 @@ except ImportError:
 else:
     setup = setuptools.setup
 
-
 PACKAGE = next((str(s) for s in setuptools.find_packages('.', exclude=('tests', 'tests.*'))), None)
 PWD = os.path.abspath(os.path.dirname(__file__))
 VERSION = (
@@ -28,8 +27,7 @@ with open(os.path.join(PWD, 'README.md')) as f:
     README = f.read()
 
 requires = [
-    'coreapi==1.20.0',
-    "-e git+https://github.com/finix-payments/wac@v0.26#egg=wac"
+    'coreapi==1.20.0'
 ]
 
 extras_require = {
@@ -68,6 +66,7 @@ class UploadCommand(distutils.cmd.Command):
     def finalize_options(self):
         pass
 
+
 setup(
     name=PACKAGE,
     version=VERSION,
@@ -83,6 +82,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     scripts=scripts,
+    dependency_links=[
+        "-e git+https://github.com/finix-payments/wac@v0.26#egg=wac"
+    ],
     install_requires=requires,
     extras_require=extras_require,
     tests_require=extras_require['tests'],
