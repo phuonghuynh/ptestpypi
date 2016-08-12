@@ -12,28 +12,33 @@ except ImportError:
 else:
     setup = setuptools.setup
 
-PACKAGE = next((str(s) for s in setuptools.find_packages('.', exclude=('tests', 'tests.*'))), None)
+PACKAGE = next((str(s) for s in setuptools.find_packages('.', exclude=("tests", "tests.*"))), None)
 PWD = os.path.abspath(os.path.dirname(__file__))
 VERSION = (
     re
         .compile(r".*__version__ = '(.*?)'", re.S)
-        .match(open(os.path.join(PWD, PACKAGE, '__init__.py')).read())
+        .match(open(os.path.join(PWD, PACKAGE, "__init__.py")).read())
         .group(1)
 )
-PYPI_USERNAME = os.environ['PYPI_USERNAME']
-PYPI_PASSWORD = os.environ['PYPI_PASSWORD']
+PYPI_USERNAME = os.environ["PYPI_USERNAME"]
+PYPI_PASSWORD = os.environ["PYPI_PASSWORD"]
 
-with open(os.path.join(PWD, 'README.md')) as f:
+with open(os.path.join(PWD, "README.md")) as f:
     README = f.read()
 
+dependency_links=[
+    "https://github.com/finix-payments/wac@v0.26#egg=wac"
+]
+
 requires = [
-    'coreapi==1.20.0'
+    "coreapi==1.20.0",
+    "wac"
 ]
 
 extras_require = {
-    'tests': [
-        'nose',
-        'coverage'
+    "tests": [
+        "nose",
+        "coverage"
     ]
 }
 
@@ -43,21 +48,21 @@ scripts = [
 
 
 class UploadCommand(distutils.cmd.Command):
-    description = 'upload to PyPI'
+    description = "upload to PyPI"
     user_options = []
 
     def run(self):
         from twine.commands import upload as twine_upload
         self.announce('running upload %s to PyPI' % str(PACKAGE), level=distutils.log.INFO)
         twine_upload.upload(
-            dists=['dist/*'],
-            repository='pypi',
+            dists=["dist/*"],
+            repository="pypi",
             sign=False,
             identity=None,
             username=PYPI_USERNAME,
             password=PYPI_PASSWORD,
             comment=None,
-            sign_with='gpg'
+            sign_with="gpg"
         )
 
     def initialize_options(self):
@@ -82,9 +87,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     scripts=scripts,
-    dependency_links=[
-        "https://github.com/finix-payments/wac@v0.26#egg=wac"
-    ],
+    dependency_links=dependency_links,
     install_requires=requires,
     extras_require=extras_require,
     tests_require=extras_require['tests'],
