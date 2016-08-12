@@ -32,7 +32,8 @@ dependency_links=[
 
 requires = [
     "coreapi==1.20.0",
-    "wac==0.26"
+    "wac==0.26",
+    "wheel==0.29"
 ]
 
 extras_require = {
