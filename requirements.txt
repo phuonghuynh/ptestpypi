@@ -1,9 +1,0 @@
-coreapi==1.20.0
--e git+https://github.com/finix-payments/wac@v0.26#egg=wac
-
-# pypi-publisher==0.0.4
-# iso8601==0.1.11
-
-# gitdb==0.6.4
-# python-semantic-release==3.9.0
-twine==1.8.1
