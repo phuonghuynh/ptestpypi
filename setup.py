@@ -27,7 +27,7 @@ with open(os.path.join(PWD, "README.md")) as f:
     README = f.read()
 
 dependency_links=[
-    "https://github.com/finix-payments/wac@v0.26#egg=wac-26"
+    "git://github.com/finix-payments/wac.git@v0.26#egg=wac-26"
 ]
 
 requires = [
