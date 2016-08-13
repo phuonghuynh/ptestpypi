@@ -20,8 +20,8 @@ VERSION = (
         .match(open(os.path.join(PWD, PACKAGE, "__init__.py")).read())
         .group(1)
 )
-PYPI_USERNAME = "phuonghqh"
-PYPI_PASSWORD = "SiHill098"
+# PYPI_USERNAME = "phuonghqh"
+# PYPI_PASSWORD = "SiHill098"
 # PYPI_USERNAME = os.environ["PYPI_USERNAME"]
 # PYPI_PASSWORD = os.environ["PYPI_PASSWORD"]
 
@@ -51,49 +51,51 @@ scripts = [
 ]
 
 
-class UploadCommand(distutils.cmd.Command):
-    description = "upload to PyPI"
-    user_options = []
-
-    def run(self):
-        from twine.commands import upload as twine_upload
-        from twine.commands import register as twine_register
-
-        self.announce('running upload %s to PyPI' % str(PACKAGE), level=distutils.log.INFO)
-        for package in glob.glob("dist/*"):
-            twine_register.register(
-                package=package,
-                repository="pypi",
-                username=PYPI_USERNAME,
-                password=PYPI_PASSWORD,
-                comment=None,
-                config_file=".pypirc",
-                cert=None,
-                client_cert=None,
-                repository_url=None
-            )
-
-        twine_upload.upload(
-            dists=["dist/*"],
-            repository="pypi",
-            sign=False,
-            identity=None,
-            username=PYPI_USERNAME,
-            password=PYPI_PASSWORD,
-            comment=None,
-            sign_with="gpg",
-            config_file=".pypirc",
-            skip_existing=True,
-            cert=None,
-            client_cert=None,
-            repository_url=None
-        )
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
+# class UploadCommand(distutils.cmd.Command):
+#     description = "upload to PyPI"
+#     user_options = [
+#         ('repository=', "r", 'repository defined in section [distutils] in setup.cfg'),
+#     ]
+#
+#     def run(self):
+#         from twine.commands import upload as twine_upload
+#         from twine.commands import register as twine_register
+#
+#         self.announce('running upload `{}` to `{}`'.format(PACKAGE, self.repository), level=distutils.log.INFO)
+#         for package in glob.glob("dist/*"):
+#             twine_register.register(
+#                 package=package,
+#                 repository=self.repository,
+#                 username=PYPI_USERNAME,
+#                 password=PYPI_PASSWORD,
+#                 comment=None,
+#                 config_file="setup.cfg",
+#                 cert=None,
+#                 client_cert=None,
+#                 repository_url=None
+#             )
+#
+#         twine_upload.upload(
+#             dists=["dist/*"],
+#             repository=self.repository,
+#             sign=False,
+#             identity=None,
+#             username=PYPI_USERNAME,
+#             password=PYPI_PASSWORD,
+#             comment=None,
+#             sign_with="gpg",
+#             config_file="setup.cfg",
+#             skip_existing=True,
+#             cert=None,
+#             client_cert=None,
+#             repository_url=None
+#         )
+#
+#     def initialize_options(self):
+#         self.repository = 'pypi'
+#
+#     def finalize_options(self):
+#         self.announce('using repository `%s`' % self.repository, level=distutils.log.INFO)
 
 
 setup(
@@ -115,8 +117,5 @@ setup(
     install_requires=requires,
     extras_require=extras_require,
     tests_require=extras_require['tests'],
-    test_suite='nose.collector',
-    cmdclass={
-        'upload': UploadCommand,
-    }
+    test_suite='nose.collector'
 )
